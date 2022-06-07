@@ -37,4 +37,18 @@ class Language(models.Model):
         super().save(*args, **kwargs)
 
 
+class Vacancy(models.Model):
+    url = models.URLField(unique=True)
+    title = models.CharField(max_length=200, verbose_name='Заголовок вакансий')
+    company = models.CharField(max_length=200, verbose_name='Компания')
+    description = models.TextField(verbose_name='Описание Вакансий')
+    city = models.ForeignKey('City', verbose_name='', on_delete=models.CASCADE)
+    language = models.ForeignKey('Language', verbose_name='', on_delete=models.CASCADE)
+    timestmp = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+
+    def __str__(self):
+        return self.title
